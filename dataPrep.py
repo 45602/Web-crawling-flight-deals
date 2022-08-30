@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
-airComp = input("Air company for review ")
+#airComp = input("Air company for review ")
 def createLink(airComp):
     link = 'https://www.airlinequality.com/airline-reviews/' + airComp + "/" #'/?pagesize=100'
     return link
@@ -53,5 +53,10 @@ def createFolderStructure(airCompany, fileName, data):
 def createFileName(string):
     return "article" + str(hash(string)) + ".txt"
 
-link = createLink(airComp)
-launchBrowser(link)
+#link = createLink(airComp)
+#launchBrowser(link)
+
+def prepAirlineName(string):
+    return re.sub(" \d+", "", string).replace(" ", "-").lower()
+
+
