@@ -36,6 +36,6 @@ def drawMap(airportOne, airportTwo):
     figure.update_layout(mapbox_style="open-street-map")
     drawEdges(figure, coordinatesOne, coordinatesTwo)  
     figure.update_layout(mapbox_style="open-street-map")
-    figure.write_html('figura.html', auto_open=True) 
+    figure.write_html('Templates/figura.html', auto_open=True) 
 
 drawMap("Novi Sad, Serbia", "Zagreb, Hrvatska")
