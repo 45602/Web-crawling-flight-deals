@@ -1,5 +1,5 @@
-Flask                         2.2.1
-Selenium
+flask
+selenium
 geopy
 plotly
 sklearn
