@@ -1,8 +1,7 @@
 import json
 from flask import Flask, request
-from vectorizer_loader import vectorizer
-from ai_model import loaded_model
 from services.find_flights import find_flights
+from services.sentiment_prediction import sentiment_predict
 app = Flask(__name__)
 
 
@@ -16,8 +15,7 @@ def predict_senitment():
   content_json = json.loads(request.data)
   print(content_json, flush=True)
   text = content_json['text']
-  vectorized_text = vectorizer.transform([text])
-  sentiment = loaded_model.predict(vectorized_text)
+  sentiment = sentiment_predict(text)
   result = "Sentiment is "  + str(sentiment)
   return result
 
