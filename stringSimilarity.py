@@ -14,7 +14,7 @@ def initialMatrix():
 
     dimensions = (strOneLen+1, strTwoLen+1)
     matrix = np.zeros(dimensions)
-    
+
     for i in range(0, strTwoLen+1):
         matrix[0][i] = i
     
@@ -41,7 +41,7 @@ def dlDistance(s1, s2, matrix):
             else:
                 minimum = min(matrix[j-1][i-1], matrix[j-1][i], matrix[j][i-1], matrix[j-2][i-2])
                 matrix[j][i] = 1+minimum
-    
+
     return str(matrix[len(s1)][len(s2)])
 
 distance = initialMatrix()
