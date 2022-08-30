@@ -1,14 +1,16 @@
 import json
-from flask import Flask, request
+from flask import Flask, request, render_template
 from services.find_flights import find_flights
 from services.sentiment_prediction import sentiment_predict
 from services.autocompletion import autocomplete_location
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 
 @app.route("/")
 def hello_world():
-  return "Hello, World!"
+  # return "Hello, World!"
+  return render_template('index.html')
+
 
 @app.route("/predict", methods=['GET'])
 def predict_senitment():
@@ -17,7 +19,7 @@ def predict_senitment():
   print(content_json, flush=True)
   text = content_json['text']
   sentiment = sentiment_predict(text)
-  result = "Sentiment is "  + str(sentiment)
+  result = "Sentiment is " + str(sentiment)
   return result
 
 @app.route("/flights", methods=['GET'])
@@ -27,8 +29,10 @@ def find_flight():
   source = content_json['source']
   date = content_json['date']
   res = find_flights(destination, source, date)
-  results = json.dumps(res)
-  return results
+  print(res)
+  print(type(res))
+  results = res
+  return render_template('results.html', content=results)
 
 
 @app.route("/autocomplete-location", methods=['GET'])

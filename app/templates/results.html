@@ -1,0 +1,22 @@
+<!-- results.html -->
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<p> This is from "results.html"</p>
+
+<table border = 1></table>
+{% for value in content|list %}
+    {% if loop.index % 2 == 0 %}
+        {% set bg_color = '#e6f9ff' %}
+    {% else %}
+        {% set bg_color = '#eee' %}
+    {% endif %}
+
+    <div style="padding: 10px; background-color: {{ bg_color }}; margin: 20px">
+        <p>#{{ loop.index }}</p>
+        <p style="font-size: 24px">{{ value|safe }}</p>
+    </div>
+{% endfor %}
+</table>
+{% endblock %}
