@@ -8,3 +8,21 @@ Read port: 56266
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\User\\AppData\\Local\\Temp\\rust_mozprofilepTbGJJ\\search.json.mozlz4", (void 0)))
 DevTools listening on ws://localhost:56235/devtools/browser/fd348b53-2ca6-438b-95ed-f9b3b395599e
 JavaScript error: resource://gre/modules/URIFixup.jsm, line 292: NS_ERROR_FAILURE: Should pass a non-null uri
+1661892386105	geckodriver	INFO	Listening on 127.0.0.1:43625
+1661892386110	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "--remote-debugging-port" "43553" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileOBvc1m"
+*** You are running in headless mode.
+1661892386482	Marionette	INFO	Marionette enabled
+1661892386486	Marionette	INFO	Listening on port 45109
+WebDriver BiDi listening on ws://localhost:43553
+Read port: 45109
+1661892386620	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileOBvc1m/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:43553/devtools/browser/4d37a35d-9af0-4480-ad71-4db24971702c
+JavaScript warning: https://pagead2.googlesyndication.com/bg/ppzs-o_oDTLysEGEkZroIB51IgxzANAUgUjK_Y8VX9I.js line 2 > eval line 20 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/ppzs-o_oDTLysEGEkZroIB51IgxzANAUgUjK_Y8VX9I.js line 2 > eval line 2272 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/ppzs-o_oDTLysEGEkZroIB51IgxzANAUgUjK_Y8VX9I.js line 2 > eval line 1855 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1661892407510	Marionette	INFO	Stopped listening on port 45109
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2013\"  data: no]"

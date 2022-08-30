@@ -2,6 +2,7 @@ import json
 from flask import Flask, request
 from vectorizer_loader import vectorizer
 from ai_model import loaded_model
+from services.find_flights import find_flights
 app = Flask(__name__)
 
 
@@ -22,5 +23,10 @@ def predict_senitment():
 
 @app.route("/flights", methods=['POST'])
 def find_flight():
-  results = 'resultats'#json.dumps('crawl_flights()')
+  content_json = json.loads(request.data)
+  destination = content_json['destination']
+  source = content_json['source']
+  date = content_json['date']
+  res = find_flights(destination, source, date)
+  results = json.dumps(res)
   return results
