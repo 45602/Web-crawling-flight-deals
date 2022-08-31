@@ -28,6 +28,7 @@ def find_flight():
   destination = content_json['destination']
   source = content_json['source']
   date = content_json['date']
+  criteria  = content_json['criteria']
   res = find_flights(destination, source, date)
   print(res)
   print(type(res))
