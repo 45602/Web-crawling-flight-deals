@@ -24,7 +24,8 @@ def scrape(airline):
             break
         review = " ".join(review.split("|")[1:])
         fileName = str(hash(review))
-        saveReview(airline, fileName, review)
+        return saveReview(airline, fileName, review)
+        
 
 
 def fetch_comments(airline):
@@ -36,7 +37,8 @@ def fetch_comments(airline):
 
     os.mkdir(folder)
     
-    scrape(airline)
+    sentiment = scrape(airline)
+    return sentiment
 
 
 def saveReview(airline, fileName, text):
@@ -50,6 +52,8 @@ def saveReview(airline, fileName, text):
     vm_env.attachCurrentThread()
     with ReviewIndexer() as indexer:
         indexer.indexReview(airline, fileName, text, sentiment)
+
+    return sentiment
 
 
 def prepAirlineName(string):
