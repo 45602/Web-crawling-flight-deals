@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>NAslov</title>
+    <title>Flight Sorter</title>
     <style>
       * {
         box-sizing: border-box;
@@ -160,16 +160,24 @@
     </script>
   </head>
   <body>
-    <h1>"OVO JE NESTO BITNO</h1>
-    <p>Pozdrav iz Grovinja</p>
-    <div>
-    <div class="autocomplete" style="width: 300px">
-      <input id="source" type="text" name="source" placeholder="Source" />
-    </div>
-    <div class="autocomplete" style="width: 300px">
-      <input id="dest" type="text" name="dest" placeholder="Destination" />
-    </div>
-    </div>
+    <h1>Flight Sorter</h1>
+    <p>Sorts your flights</p>
+        <form action = "{{url_for('find_flight') }}" method="GET">
+          <div>
+            <div class="autocomplete" style="width: 300px">
+              <input id="source" type="text" name="source" placeholder="Source" />
+            </div>
+            <div class="autocomplete" style="width: 300px">
+              <input id="dest" type="text" name="dest" placeholder="Destination" />
+            </div>
+            <label for="date">Pick a date:</label>
+            <input type="date" name="date" id="date">
+            <input type="checkbox" name="option1" id="price" value="price"> Price </input>
+            <input type="checkbox" name="option2" id="quality" value="quality of service"> Quality of service </input>
+            <input type="checkbox" name="option3" id="comfort" value="comfort"> Comfort </input>
+            <button type="submit" value="submit">Submit</button>
+          </div>
+        </form>
     <script>
       autocomplete(document.getElementById("source"));
       autocomplete(document.getElementById("dest"));

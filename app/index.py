@@ -27,10 +27,11 @@ def predict_senitment():
 
 @app.route("/flights", methods=['GET'])
 def find_flight():
-  destination = request.args['destination']
+  destination = request.args['dest']
   source = request.args['source']
   date = request.args['date']
-  res = find_flights(destination, source, date)
+  criteria = [request.args[f"option{i}"] for i in range(1, 5) if request.args.get(f"option{i}")]
+  res = find_flights(destination, source, date, criteria)
   results = res
   return render_template('results.html', content=results)
 

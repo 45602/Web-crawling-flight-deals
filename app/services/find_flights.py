@@ -5,10 +5,11 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 
-from app.services.fetch_comments import fetch_comments
+from services.fetch_comments import fetch_comments
+from services.searchers import ReviewSearcher
 
 
-def find_flights(destination, source, date):
+def find_flights(destination, source, date, criteria):
     options = Options()
     options.headless = True
     driver = webdriver.Firefox(options=options)
@@ -33,37 +34,31 @@ def find_flights(destination, source, date):
 
     driver.close()
 
-    
     for airline in [airline for flight in flights for airline in flight["airlines"]]:
-        #sentiment = fetch_comments(airline)
-        flights[airline]["sentiment"] = 4
+        fetch_comments(airline)
         
-    flights = sort(flights, criteria = 'duration', asc=True)
+    flights = sort(flights, criteria, asc=True)
 
     return flights
 
 
-if __name__ == "__main__":
-    print(find_flights("MIL", "LHR", "2022-09-19"))
+sentiment_map = {"positive": 1, "neutral": 0, "negative": -1}
 
-def calculate_duration(duration_string):
-    duration_string = re.sub('\D', '', duration_string)
-    mins = duration_string[len(duration_string)-2:]
-    hours = int(duration_string[:len(duration_string)-2])*60
-    return hours + int(mins)
-
-sentiment_quantified = {
-    'positive':1,
-    'neutral':2,
-    'negative':3                    
-}
 
 def sort(flights, criteria, asc=False):
-    if criteria == 'price':
-        return sorted(flights, key=lambda x:int(x['price'][2:]), reverse=asc)
-    if criteria == 'duration':
-        return sorted(flights, key=lambda x:calculate_duration(x['duration']), reverse=asc)
-    if criteria == 'sentiment':
-        return sorted(flights, key=lambda x:sentiment_quantified[x['sentiment']], reverse=asc)
+    for flight in flights:
+        score = 0
+        for airline in flight["airlines"]:
+            with ReviewSearcher() as searcher:
+                comments = searcher.search(airline, criteria)
+            if len(comments) == 0:
+                score += 0.5
+                continue
+            sentiments = [sentiment_map[comment["sentiment"]] * comment["score"] for comment in comments]
+            avg_sentiment = sum(sentiments) / len(sentiments)
+            score += avg_sentiment
+        score /= len(flight["airlines"])
+        flight["score"] = score
         
+    return list(sorted(flights, key=lambda flight: flight["score"], reverse=not asc))
 

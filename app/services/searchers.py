@@ -30,7 +30,6 @@ class BaseSearcher():
 class ReviewSearcher(BaseSearcher):
     def __init__(self):
         super().__init__("review_index", StandardAnalyzer())
-        
 
     def search(self, airline, phrases):
         builder = BooleanQuery.Builder()
@@ -57,7 +56,6 @@ class ReviewSearcher(BaseSearcher):
 class AirportSearcher(BaseSearcher):
     def __init__(self):
         super().__init__("airport_index", SimpleAnalyzer())
-        
 
     def search(self, text):
         builder = BooleanQuery.Builder()
