@@ -12,7 +12,7 @@ from org.apache.lucene.store import NIOFSDirectory
 
 class BaseIndexer():
     def __init__(self, indexDirName, analyzer, createNewIndex):
-        indexDirPath = f"data/{indexDirName}"
+        indexDirPath = f"app/data/{indexDirName}"
         if not os.path.exists(indexDirPath):
             createNewIndex = True
             os.makedirs(indexDirPath, exist_ok=True)
@@ -69,7 +69,7 @@ class AirportIndexer(BaseIndexer):
 if __name__ == '__main__':
     lucene.initVM()
     
-    data_folder = "../data/review_data"
+    data_folder = "app/data/review_data"
     with ReviewIndexer(True) as indexer:
         for company in os.listdir(data_folder):
             for commentId in os.listdir(f"{data_folder}/{company}"):
@@ -78,7 +78,7 @@ if __name__ == '__main__':
                 commentId = commentId.split(".")[0] # remove extension
                 indexer.indexReview(company, commentId, comment, "neutral")
 
-    with open("../data/airports.csv") as csvfile:
+    with open("app/data/airports.csv") as csvfile:
         reader = csv.DictReader(csvfile)
         airports = list(reader)
         airports = list(filter(lambda airport: airport["iata_code"] != "", airports)) # keep only airports that have IATA code
