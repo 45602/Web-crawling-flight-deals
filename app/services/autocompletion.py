@@ -1,4 +1,8 @@
-
+import lucene
+from services.searchers import AirportSearcher
 
 def autocomplete_location(location_input):
-    return location_input + "more characters"
+    vm_env = lucene.getVMEnv()
+    vm_env.attachCurrentThread()
+    with AirportSearcher() as searcher:
+        return searcher.search(location_input)

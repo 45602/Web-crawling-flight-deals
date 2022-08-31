@@ -2,3 +2,4 @@ review_index/
 airport_index/
 __pycache__/
 geckodriver.log
+app/data/review_data

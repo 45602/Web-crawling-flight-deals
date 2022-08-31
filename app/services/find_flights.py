@@ -1,11 +1,14 @@
 import time
+from services.fetch_comments import fetch_comments
+from services.searchers import ReviewSearcher
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 
 
 def find_flights(destination, source, date):
+    #return sorted_flights([{"airlines": ["norwegian"]}], [])
+
     options = Options()
     options.headless = True
     driver = webdriver.Firefox(options=options)
@@ -30,6 +33,17 @@ def find_flights(destination, source, date):
 
     driver.close()
 
+    return sorted_flights(flights, [])
+
+
+def sorted_flights(flights, criteria):
+    for airline in [airline for flight in flights for airline in flight["airlines"]]:
+        fetch_comments(airline)
+    
+    scores = []
+    for flight in flights:
+        ...
+    
     return flights
 
 
