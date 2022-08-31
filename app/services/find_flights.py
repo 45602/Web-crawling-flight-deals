@@ -30,8 +30,16 @@ def find_flights(destination, source, date):
 
     driver.close()
 
+    flights = sort(flights,criteria = 'price', asc=True)
+
     return flights
 
 
 if __name__ == "__main__":
     print(find_flights("MIL", "LHR", "2022-09-19"))
+
+def sort(flights, criteria, asc=True):
+    if asc == True:
+        return flights.sort_values(criteria, ascending=True)
+    else:
+        return flights.sort_values(criteria, ascending=False)
