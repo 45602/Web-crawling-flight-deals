@@ -162,20 +162,22 @@
   <body>
     <h1>"OVO JE NESTO BITNO</h1>
     <p>Pozdrav iz Grovinja</p>
-    <div>
-    <div class="autocomplete" style="width: 300px">
-      <input id="source" type="text" name="source" placeholder="Source" />
-    </div>
-    <div class="autocomplete" style="width: 300px">
-      <input id="dest" type="text" name="dest" placeholder="Destination" />
-    </div>
-    <label for="date">Pick a date:</label>
-        <input type="date" id="date">
-        <button type="submit" class="btn btn-primary">Find offers</button>  <br>
-        <input type="radio" name="options" id="price" value="price"> Sort by price </input>
-        <input type="radio" name="options" id="duration" value="duration"> Sort by duration </input>
-        <input type="radio" name="options" id="sentiment" value="sentiment"> Sort by company sentiment </input>
-    </div>
+    <form action = "{{url_for('find_flight') }}" method="GET">
+        <div>
+        <div class="autocomplete" style="width: 300px">
+        <input id="source" type="text" name="source" placeholder="Source" />
+        </div>
+        <div class="autocomplete" style="width: 300px">
+        <input id="dest" type="text" name="dest" placeholder="Destination" />
+        </div>
+        <label for="date">Pick a date:</label>
+            <input type="date" name="date" id="date">
+            <input type="checkbox" name="option1" id="price" value="price"> Price </input>
+            <input type="checkbox" name="option2" id="quality" value="quality of service"> Quality of service </input>
+            <input type="checkbox" name="option3" id="comfort" value="comfort"> Comfort </input>
+        <button type="submit" value="submit">Submit</button>
+        </div>
+    </form>
     <script>
       autocomplete(document.getElementById("source"));
       autocomplete(document.getElementById("dest"));
