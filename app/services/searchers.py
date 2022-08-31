@@ -1,11 +1,8 @@
-import sys
-import os
 import lucene
 
 from java.nio.file import Paths
 from org.apache.lucene.analysis.core import SimpleAnalyzer
 from org.apache.lucene.analysis.standard import StandardAnalyzer
-from org.apache.lucene.document import Document
 from org.apache.lucene.index import  DirectoryReader, Term
 from org.apache.lucene.queryparser.classic import QueryParser
 from org.apache.lucene.search import IndexSearcher, BooleanQuery, TermQuery, BooleanClause, PrefixQuery
@@ -35,19 +32,26 @@ class ReviewSearcher(BaseSearcher):
         super().__init__("review_index", StandardAnalyzer())
         
 
-    def search(self, airline, keywords):
+    def search(self, airline, phrases):
         builder = BooleanQuery.Builder()
         builder.add(TermQuery(Term("airline", airline)), BooleanClause.Occur.MUST)
-        for phrase in keywords:
+        for phrase in phrases:
             builder.add(QueryParser("comment", self.queryAnalyzer).parse(phrase), BooleanClause.Occur.SHOULD)
+        builder.setMinimumNumberShouldMatch(1)
         query = builder.build()
-        docs = self.searcher.search(query, 10)
+        docs = self.searcher.search(query, 100)
         hits = docs.scoreDocs
-
+        
+        comments = []
         for hit in hits:
             docId = hit.doc
             score = hit.score
             doc = self.searcher.doc(docId)
+            
+            comment = {"score": score, **{k: doc.get(k) for k in ["airline", "commentId", "sentiment"]}}
+            comments.append(comment)
+
+        return comments
 
 
 class AirportSearcher(BaseSearcher):
@@ -74,15 +78,11 @@ class AirportSearcher(BaseSearcher):
         return airports
 
 
-def initVM():
-    lucene.initVM()
-
-
 if __name__ == '__main__':
     lucene.initVM()
     
-    #with ReviewSearcher() as searcher:
-    #    searcher.search("air-serbia", ["flight"])
+    with ReviewSearcher() as searcher:
+        print(searcher.search("air-serbia", ["flight"]))
 
     with AirportSearcher() as searcher:
-        searcher.search("beg")
+        print(searcher.search("beg"))
